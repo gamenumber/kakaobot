@@ -53,7 +53,7 @@ def find_and_respond(target_image, response_message):
     result = cv2.matchTemplate(screenshot, target, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, _ = cv2.minMaxLoc(result)
     
-    if max_val > 0.2:
+    if max_val > 0.4:
         notification_id = generate_notification_id(target)
         if notification_id not in processed_notifications:
             print("새로운 알림 감지!")
