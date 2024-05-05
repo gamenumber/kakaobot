@@ -1,8 +1,17 @@
+import time
+import pyaudio
+import numpy as np
 import pyautogui
 import pyperclip
 
+# 오디오 스트림 설정
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
+CHUNK = 1024  # 한 번에 처리할 프레임의 수
+SECONDS_PER_CHECK = 1  # 몇 초마다 체크할지
+
 def send_auto_response(message):
-    # 카카오톡 아이콘이 위치한 좌표를 지정합니다.
     kakao_icon_position = (550, 900)  # 이 좌표는 예시입니다. 실제 좌표로 수정하세요.
 
     # 카카오톡 아이콘으로 마우스를 이동시킵니다.
@@ -59,9 +68,37 @@ def send_auto_response(message):
 
     # 전송 버튼을 클릭하여 메시지를 전송합니다.
     pyautogui.press('return')
+    
+    print("메시지를 성공적으로 전송했습니다.")
 
-# 메시지를 보낼 내용을 정의합니다.
-message = "(자동회신) 주인이 자리에 없습니다."
+def callback(in_data, frame_count, time_info, status):
+    global start_time
+    if time.time() - start_time >= SECONDS_PER_CHECK:
+        audio_data = np.frombuffer(in_data, dtype=np.int16)
+        volume = np.sqrt(np.mean(audio_data**2))
+        if volume > 80:  # 볼륨 임계값 설정
+            print("Detected sound")
+            send_auto_response("자동회신: 현재 주인이 자리에 없습니다. 나중에 주인장이 꼼꼼히 읽고 답해드리겠습니다!")
+        start_time = time.time()
+    return (in_data, pyaudio.paContinue)
 
-# 메시지를 보냅니다.
-send_auto_response(message)
+audio = pyaudio.PyAudio()
+
+stream = audio.open(format=FORMAT, channels=CHANNELS,
+                    rate=RATE, input=True,
+                    frames_per_buffer=CHUNK,
+                    stream_callback=callback)
+
+start_time = time.time()  # 시작 시간 초기화
+
+stream.start_stream()
+
+try:
+    while stream.is_active():
+        time.sleep(0.1)
+except KeyboardInterrupt:
+    pass
+
+stream.stop_stream()
+stream.close()
+audio.terminate()
