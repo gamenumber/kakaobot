@@ -66,8 +66,9 @@ def find_and_respond(target_image, response_message):
 
 # 예시 사용법
 while True:
-    find_and_respond("notification_banner.png", "(자동회신)현재 주인장이 자고 있습니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다 (@_@)" )
+    find_and_respond("notification_banner.png", "(자동회신)프로그램 테스트 중입니다." )
     #"(자동회신)현재 주인장이 학교에서 핸드폰을 돌려받지 못했습니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다 (@_@)"
     #"(자동회신)현재 주인장이 자고 있습니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다 (@_@)"
     #"(자동회신)현재 주인장이 외출중입니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다."
+    #"(자동회신)프로그램 테스트 중입니다."
     time.sleep(5)  # 다음 확인까지 대기
