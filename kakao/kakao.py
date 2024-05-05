@@ -53,7 +53,7 @@ def find_and_respond(target_image, response_message):
     result = cv2.matchTemplate(screenshot, target, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, _ = cv2.minMaxLoc(result)
     
-    if max_val > 0.8:
+    if max_val > 0.2:
         notification_id = generate_notification_id(target)
         if notification_id not in processed_notifications:
             print("새로운 알림 감지!")
@@ -66,5 +66,8 @@ def find_and_respond(target_image, response_message):
 
 # 예시 사용법
 while True:
-    find_and_respond("notification_banner.png", "(자동회신)현재 주인이 학교에서 핸드폰을 받지 못했습니다. 나중에 꼭 답변 드리겠습니다 (@_@)")
+    find_and_respond("notification_banner.png", "(자동회신)현재 주인장이 자고 있습니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다 (@_@)" )
+    #"(자동회신)현재 주인장이 학교에서 핸드폰을 돌려받지 못했습니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다 (@_@)"
+    #"(자동회신)현재 주인장이 자고 있습니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다 (@_@)"
+    #"(자동회신)현재 주인장이 외출중입니다. 나중에 꼼꼼하게 읽고 꼭 답변 드리겠습니다."
     time.sleep(5)  # 다음 확인까지 대기
