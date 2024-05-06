@@ -33,7 +33,7 @@ class MainWindow(QWidget):
         # 감지 및 응답 기능 추가하기
         while True:
             find_and_respond("notification_banner.png", response_message)
-            time.sleep(6)  # 다음 확인까지 대기
+            time.sleep(2)  # 다음 확인까지 대기
 
 def send_auto_response(message):
     kakao_icon_position = (550, 900)  # 이 좌표는 예시입니다. 실제 좌표로 수정하세요.
@@ -82,7 +82,7 @@ def find_and_respond(target_image, response_message):
     result = cv2.matchTemplate(screenshot, target, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, _ = cv2.minMaxLoc(result)
 
-    if max_val > 0.6:
+    if max_val > 0.3:
         notification_id = generate_notification_id(target)
         if notification_id not in processed_notifications:
             print("새로운 알림 감지!")
