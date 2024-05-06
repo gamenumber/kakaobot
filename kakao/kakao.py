@@ -115,6 +115,8 @@ if __name__ == "__main__":
 
 """
 *실행방법
+visual studio code를 깔아주세요 
+-> 거기서 kakao폴더를 열어주세요
 python 3.12 버전을 깔아주세요 -> https://www.python.org/ -> 3.12.3 또는 최신버전
 pip3 install PyQt5 pyautogui opencv-python numpy pyperclip -> 터미널에 입력해주세요
 이후에 터미널에 "python3 kakao.py"라고 입력하고 현재 무슨상황이라서 자리를 비웠는지 체크하고
