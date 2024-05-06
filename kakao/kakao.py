@@ -82,7 +82,7 @@ def find_and_respond(target_image, response_message):
     result = cv2.matchTemplate(screenshot, target, cv2.TM_CCOEFF_NORMED)
     _, max_val, _, _ = cv2.minMaxLoc(result)
 
-    if max_val > 0.4:
+    if max_val > 0.6:
         notification_id = generate_notification_id(target)
         if notification_id not in processed_notifications:
             print("새로운 알림 감지!")
@@ -108,3 +108,16 @@ if __name__ == "__main__":
     main_window = MainWindow()
     main_window.show()
     sys.exit(app.exec_())
+
+# nano ~/.bashrc
+# export PATH="/Users/kimhyunbin/Library/Python/3.9/bin:$PATH"
+# source ~/.bashrc
+
+"""
+*실행방법
+python 3.12 버전을 깔아주세요 -> https://www.python.org/ -> 3.12.3 또는 최신버전
+pip3 install PyQt5 pyautogui opencv-python numpy pyperclip -> 터미널에 입력해주세요
+이후에 터미널에 "python3 kakao.py"라고 입력하고 현재 무슨상황이라서 자리를 비웠는지 체크하고
+그 밑에 있는 버튼을 눌러주세요
+아이콘 위치 / 채팅방 위치를 맞춰주세요
+"""
